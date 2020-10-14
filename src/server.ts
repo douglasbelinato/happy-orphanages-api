@@ -1,5 +1,7 @@
 import express from "express";
 
+import "./database/connection";
+
 const app = express();
 
 // Configure Express to work with json sent in request body
