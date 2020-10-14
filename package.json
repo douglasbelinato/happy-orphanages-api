@@ -1,0 +1,11 @@
+{
+  "name": "happy-orphanages-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:douglasbelinato/happy-orphanages-api.git",
+  "author": "Douglas <douglasbelinato@cvccorp.com.br>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
