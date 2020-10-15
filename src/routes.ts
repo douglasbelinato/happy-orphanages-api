@@ -1,12 +1,18 @@
 import { Router } from "express";
+import multer from "multer";
+import uploadConfig from "./config/upload";
+
 import OrphanagesController from "./controllers/OrphanagesController";
 
 const routes = Router();
+const upload = multer(uploadConfig);
 
 // Resouce name patterns most common for controllers in node / typescript:
 // index, show, create, update, delete
 routes.get("/orphanages", OrphanagesController.index);
 routes.get("/orphanages/:id", OrphanagesController.show);
-routes.post("/orphanages", OrphanagesController.create);
+
+// Working with image uploads we have request representation as multipart form
+routes.post("/orphanages", upload.array("images"), OrphanagesController.create);
 
 export default routes;
