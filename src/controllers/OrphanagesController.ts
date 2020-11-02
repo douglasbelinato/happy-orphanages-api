@@ -28,33 +28,9 @@ export default {
   },
 
   async create(request: Request, response: Response) {
-    const {
-      name,
-      latitude,
-      longitude,
-      about,
-      instructions,
-      opening_hours,
-      open_on_weekends,
-    } = request.body;
-
-    const requestImages = request.files as Express.Multer.File[];
-    const images = requestImages.map((image) => {
-      return { path: image.filename };
-    });
-
     const orphanagesRepository = getRepository(Orphanage);
 
-    const data = {
-      name,
-      latitude,
-      longitude,
-      about,
-      instructions,
-      opening_hours,
-      open_on_weekends,
-      images,
-    };
+    const data = getData(request);
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -82,3 +58,32 @@ export default {
     return response.status(201).json(orphanage);
   },
 };
+
+function getData(request: Request) {
+  const {
+    name,
+    latitude,
+    longitude,
+    about,
+    instructions,
+    opening_hours    
+  } = request.body;
+
+  const open_on_weekends = request.body.open_on_weekends === true || request.body.open_on_weekends == "true";
+
+  const requestImages = request.files as Express.Multer.File[];
+    const images = requestImages.map((image) => {
+      return { path: image.filename };
+    });
+
+  return {
+    name,
+    latitude,
+    longitude,
+    about,
+    instructions,
+    opening_hours,
+    open_on_weekends,
+    images,
+  };
+}
